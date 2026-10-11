@@ -1,0 +1,9 @@
+include README.md CONTRIBUTING.md THIRD_PARTY_NOTICES.md environment.yml
+recursive-include licenses *.txt
+recursive-include docs *.md
+recursive-include examples *.json
+recursive-include tests *.py *.json *.cif
+recursive-include src/printase3d/jmol *.spt *.txt
+include 3dprintase-local requirements*.txt
+recursive-include scripts *.py *.sh *.md
+recursive-include tools *.py *.md

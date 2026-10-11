@@ -1,0 +1,2 @@
+# Compatibility alias: RDKit is required by the main project.
+-r requirements.txt

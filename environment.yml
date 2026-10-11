@@ -1,0 +1,14 @@
+name: 3D-glycan
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - openjdk=17
+  - rdkit>=2025.3,<2026
+  - numpy
+  - trimesh>=4.4,<5
+  - pip
+  - pip:
+      - glyles>=1.2,<2
+      - dimorphite-dl>=2.0.2,<3
+      - -e .

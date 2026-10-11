@@ -1,0 +1,66 @@
+[
+  {
+    "label": "alpha-glucopyranose_79025",
+    "smiles": "C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O)O)O)O)O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@H](O)[C@H](O)[C@@H](O)[C@@H]1O",
+    "energy": 82.246968
+  },
+  {
+    "label": "beta-glucopyranose_64689",
+    "smiles": "C([C@@H]1[C@H]([C@@H]([C@H]([C@@H](O1)O)O)O)O)O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@@H](O)[C@H](O)[C@@H](O)[C@@H]1O",
+    "energy": 80.846251
+  },
+  {
+    "label": "beta-fructofuranose_439709",
+    "smiles": "C([C@@H]1[C@H]([C@@H]([C@](O1)(CO)O)O)O)O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@](O)(CO)[C@@H](O)[C@@H]1O",
+    "energy": 98.068012
+  },
+  {
+    "label": "beta-galactopyranose_439353",
+    "smiles": "C([C@@H]1[C@@H]([C@@H]([C@H]([C@@H](O1)O)O)O)O)O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@@H](O)[C@H](O)[C@@H](O)[C@H]1O",
+    "energy": 79.10272
+  },
+  {
+    "label": "cellobiose_439178",
+    "smiles": "C([C@@H]1[C@H]([C@@H]([C@H]([C@@H](O1)O[C@@H]2[C@H](OC([C@@H]([C@H]2O)O)O)CO)O)O)O)O",
+    "formula": "C12H22O11",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@@H](O[C@H]2[C@H](O)[C@@H](O)C(O)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+    "energy": 174.132714
+  },
+  {
+    "label": "beta-glucosaminepyranose_441477",
+    "smiles": "N[C@@H]1[C@@H](O)[C@H](O)[C@@H](CO)O[C@H]1O",
+    "formula": "C6H14NO5+",
+    "charge": 1,
+    "isomeric_smiles": "[NH3+][C@@H]1[C@@H](O)[C@H](O)[C@@H](CO)O[C@H]1O",
+    "energy": 88.513503
+  },
+  {
+    "label": "alpha-d-tagatofuranose_12306012",
+    "smiles": "OC[C@H]1O[C@@](O)(CO)[C@@H](O)[C@H]1O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@H]1O[C@@](O)(CO)[C@@H](O)[C@H]1O",
+    "energy": 102.503674
+  },
+  {
+    "label": "beta-d-tagatopyranose_14408225",
+    "smiles": "OC[C@@]1(O)OC[C@@H](O)[C@H](O)[C@@H]1O",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "isomeric_smiles": "OC[C@@]1(O)OC[C@@H](O)[C@H](O)[C@@H]1O",
+    "energy": 102.780462
+  }
+]

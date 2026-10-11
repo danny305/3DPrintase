@@ -1,0 +1,12 @@
+[
+  {
+    "label": "thc",
+    "cid": 16078,
+    "smiles": "CCCCCC1=CC(=C2[C@@H]3C=C(CC[C@H]3C(OC2=C1)(C)C)C)O"
+  },
+  {
+    "label": "maltotriose",
+    "cid": 192826,
+    "smiles": "C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O[C@@H]2[C@H](O[C@@H]([C@@H]([C@H]2O)O)O[C@@H]3[C@H](O[C@@H]([C@@H]([C@H]3O)O)O)CO)CO)O)O)O)O"
+  }
+]

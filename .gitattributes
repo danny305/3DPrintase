@@ -1,0 +1,10 @@
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.spt text eol=lf
+*.md text eol=lf
+
+# Preserve whitespace in imported scripts, license text, and data fixtures.
+src/printase3d/jmol/* whitespace=-blank-at-eol
+licenses/* whitespace=-blank-at-eol
+tests/fixtures/* whitespace=-blank-at-eol

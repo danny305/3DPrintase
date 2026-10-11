@@ -1,0 +1,30 @@
+# Generated models, downloads, and historical validation output
+/out/
+/launcher_validation/
+/pubchem_test/
+/render_test*/
+/setup_validation/
+/test_output/
+/validation_output/
+/result.json
+
+# Python/build environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Separately installed renderer and local settings
+*.jar
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
