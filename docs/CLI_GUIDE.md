@@ -44,6 +44,12 @@ does not imply a straight or biologically bound conformation. `--extended`,
 `--most-flat`, `--least-flat`, `--ensemble`, `--conformer-count`, `--seed`, and
 `--optimize` are available; deposited-coordinate flags are not applicable.
 
+For uncapped linear peptides, `--extended` applies its separation restraint
+between the backbone N-terminus and C-terminal carbonyl carbon, excluding side
+chains from the endpoint selection. It selects the most extended converged
+candidate while retaining bond geometry and stereochemistry; it does not force
+the atoms onto a geometrically straight line.
+
 All rendering controls apply, including `--monocolor-aliphatics` and
 `--no-hydrogens`. Hydrogen removal happens only when rendering, after
 optimization; the SDF retains the full molecule. Default output for `RGW` is
