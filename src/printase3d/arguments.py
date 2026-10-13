@@ -4,6 +4,7 @@ import argparse
 from .config import DEFAULT_OUTPUT, FRUCTAN_TYPES, GLUCAN_TYPES, PRESETS, VERSION
 from .options import ph_value, spacefill_value, wireframe_value
 from .rendering import resolve_jmol_jar
+from .peptides import peptide_sequence
 
 
 def positive_int(value):
@@ -15,6 +16,12 @@ def positive_int(value):
         raise argparse.ArgumentTypeError("must be a positive integer")
     return number
 
+
+def peptide_sequence_value(value):
+    try:
+        return peptide_sequence(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
 
 
 def add_common(p, *, pdb_options=False):
@@ -53,17 +60,19 @@ def add_common(p, *, pdb_options=False):
 
 
 
-def add_molecule_options(m, *, label=True):
+def add_molecule_options(m, *, label=True, source_geometry=True):
     if label:
         m.add_argument("--label", help="readable molecule name used in output paths")
     m.add_argument("--seed", type=int, default=61453, help="deterministic conformer seed")
     geometry = m.add_mutually_exclusive_group()
-    geometry.add_argument("--pubchem-geometry", dest="geometry_mode", action="store_const", const="pubchem",
-                          help="preserve/map PubChem heavy-atom coordinates and relax only hydrogens")
+    if source_geometry:
+        geometry.add_argument("--pubchem-geometry", dest="geometry_mode", action="store_const", const="pubchem",
+                              help="preserve/map PubChem heavy-atom coordinates and relax only hydrogens")
     geometry.add_argument("--ensemble", dest="geometry_mode", action="store_const", const="ensemble",
                           help="rank PubChem plus sampled charge-specific conformers and select the lowest force-field energy")
-    geometry.add_argument("--rcsb-geometry", dest="geometry_mode", action="store_const", const="rcsb", help="preserve RCSB CCD heavy-atom coordinates and relax hydrogens")
-    m.add_argument("--ccd-coordinates", choices=["ideal", "model"], default="ideal", help="CCD coordinate set (default: ideal; model is a representative deposited geometry)")
+    if source_geometry:
+        geometry.add_argument("--rcsb-geometry", dest="geometry_mode", action="store_const", const="rcsb", help="preserve RCSB CCD heavy-atom coordinates and relax hydrogens")
+        m.add_argument("--ccd-coordinates", choices=["ideal", "model"], default="ideal", help="CCD coordinate set (default: ideal; model is a representative deposited geometry)")
     m.set_defaults(geometry_mode="auto")
     flatness = m.add_mutually_exclusive_group()
     flatness.add_argument("--extended", action="store_true",
@@ -135,6 +144,13 @@ def parser():
     source.add_argument("--input", metavar="FILE", help="SDF, MOL, MOL2, or PDB file")
     add_molecule_options(m)
     add_common(m)
+    peptide = sub.add_parser("peptide", help="build and render a linear L-peptide from a one-letter sequence",
+                             description="Build an uncapped linear L-peptide in N-to-C order (e.g. RGW). "
+                             "Supports the 20 standard amino acids; use --ph to select protonation.")
+    peptide.add_argument("sequence", type=peptide_sequence_value, metavar="SEQUENCE",
+                         help="one-letter amino-acid sequence, e.g. RGW (case-insensitive)")
+    add_molecule_options(peptide, source_geometry=False)
+    add_common(peptide)
     b = sub.add_parser("batch", help="generate molecules from a JSON manifest, one per CPU worker")
     b.add_argument("manifest", help="JSON list of molecule sources and labels")
     add_molecule_options(b, label=False)

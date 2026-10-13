@@ -16,7 +16,7 @@ from .utils import PipelineError, request, sha256, utc_now
 
 
 def process_molecule(args):
-    """Process PubChem names/CIDs, line notations, or local molecule files."""
+    """Process peptide sequences, PubChem, line notations, or molecule files."""
     try:
         from rdkit import Chem
     except ImportError as exc:
@@ -25,7 +25,15 @@ def process_molecule(args):
     props = {}
     source_url = None
     ccd_provenance = None; ccd_raw = None
-    if getattr(args, "ccd", None):
+    peptide_provenance = None
+    if getattr(args, "command", None) == "peptide":
+        from .peptides import build_peptide
+        mol, peptide_provenance = build_peptide(args.sequence)
+        sequence = peptide_provenance["sequence"]
+        label = args.label or sequence
+        model_id = "peptide-" + sequence.lower()
+        source_description = f"Linear L-peptide {sequence} (N-to-C), uncapped termini; built locally with RDKit"
+    elif getattr(args, "ccd", None):
         from .ccd import fetch_ccd
         mol, ccd_provenance, ccd_raw = fetch_ccd(args.ccd, args.ccd_coordinates)
         label = args.label or args.ccd.upper()
@@ -107,6 +115,7 @@ def process_molecule(args):
         "molecule_root": str(folder.parent), "variant": variant, "source_url": source_url,
         "source_description": source_description, "input_sha256": sha256(sdf), "properties": props,
         **chemistry, "rcsb_ccd": {**ccd_provenance, "source_sha256": hashlib.sha256(ccd_raw).hexdigest()} if ccd_provenance else None,
+        **({"peptide": peptide_provenance} if peptide_provenance else {}),
         "files": {"ccd_source": "source_ccd.cif" if ccd_raw is not None else None, "input_sdf": sdf.name, "obj": obj.name if obj.exists() else None,
                   "mtl": obj.with_suffix(".mtl").name if obj.with_suffix(".mtl").exists() else None,
                   "jmol_raw_obj": mesh_report.get("jmol_raw_obj") if mesh_report else None,

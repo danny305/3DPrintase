@@ -16,6 +16,43 @@ while you work in other applications. No extra flag is needed. The pipeline stil
 waits for the export and checks its result. This uses the full `Jmol.jar`: the
 installed JmolData/headless configuration cannot produce these OBJ exports.
 
+## Short linear peptides
+
+```bash
+# Arg–Gly–Trp, written from the N terminus to the C terminus.
+3dprintase peptide RGW
+
+# Select pH-7 protonation and an extended conformer for printing.
+3dprintase peptide RGW --ph 7 --extended --no-hydrogens
+
+# Generate only the optimized SDF and metadata, without Java/Jmol.
+3dprintase peptide rgw --no-render --label Arg-Gly-Trp --output out/peptides
+```
+
+The required positional `SEQUENCE` uses the 20 standard one-letter amino-acid
+codes `ACDEFGHIKLMNPQRSTVWY`; lowercase is accepted as the same L sequence.
+Sequences run N-to-C. The builder creates a single covalent chain with peptide
+bonds, L stereochemistry (glycine is achiral), and free, uncapped amino and
+carboxyl termini. Ambiguous/modified residues, D-residue notation, separators,
+FASTA headers, terminal caps, and cyclization are not supported.
+
+Without `--ph`, the RDKit builder's neutral formal-charge representation is
+retained. `--ph PH` uses the same protonation processing as `molecule`.
+Coordinates are generated locally, then explicit-hydrogen conformers are
+minimized and ranked by the existing molecular pipeline. Linear connectivity
+does not imply a straight or biologically bound conformation. `--extended`,
+`--most-flat`, `--least-flat`, `--ensemble`, `--conformer-count`, `--seed`, and
+`--optimize` are available; deposited-coordinate flags are not applicable.
+
+All rendering controls apply, including `--monocolor-aliphatics` and
+`--no-hydrogens`. Hydrogen removal happens only when rendering, after
+optimization; the SDF retains the full molecule. Default output for `RGW` is
+`out/misc/rgw_peptide-rgw/ball-stick/`, containing SDF, OBJ/MTL (unless
+`--no-render`), JSON provenance, and `MODEL.md`. Metadata records the normalized
+sequence, residue count, termini, stereochemistry, and reproduction command.
+This subcommand accepts one sequence per invocation; JSON molecule manifests
+retain their existing source types.
+
 ## Parallel molecule batches
 
 Create a JSON list of sources and readable labels, for example `molecules.json`:

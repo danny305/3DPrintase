@@ -2,7 +2,7 @@
 
 Turn molecular structures into colored, printable ball-and-stick models from the command line. 3DPrintase combines RDKit geometry and conformer selection, Jmol rendering, and mesh repair to produce OBJ/MTL files with closed atom spheres and capped bond cylinders.
 
-Inputs include PubChem names/CIDs, SMILES, InChI, local structures, RCSB chemical components, and PDB glycans or DNA. Generated glucan and fructan chains are also supported.
+Inputs include PubChem names/CIDs, SMILES, InChI, local structures, RCSB chemical components, and PDB glycans or DNA. Generated linear peptides, glucan chains, and fructan chains are also supported.
 
 ## Quick start
 
@@ -56,9 +56,15 @@ For pip/venv installation, Windows, custom Jmol paths, and headless Linux, see [
 
 # Use RCSB Chemical Component Dictionary coordinates.
 3dprintase molecule --ccd ATP --rcsb-geometry --ph 7 --ball-stick
+
+# Build a short linear peptide from its N-to-C one-letter sequence.
+3dprintase peptide RGW
+3dprintase peptide RGW --ph 7 --extended --no-hydrogens
 ```
 
-PubChem/RCSB commands need network access. SMILES, local files, and carbohydrate builders can run offline after installation. Use `3dprintase COMMAND --help` for all options.
+PubChem/RCSB commands need network access. SMILES, local files, peptide builders, and carbohydrate builders can run offline after installation. Use `3dprintase COMMAND --help` for all options.
+
+`peptide` accepts the 20 standard amino-acid one-letter codes (case-insensitive), builds L residues with uncapped amino/carboxyl termini, and samples and minimizes 3D conformers. `RGW` means Arg–Gly–Trp. Use `--ph 7` for pH-dependent protonation; without `--ph`, the builder's neutral formal-charge representation is retained. Linear describes the chain connectivity, not a guaranteed straight conformation; `--extended` selects an extended conformer using the existing distance-restraint search. Cyclic peptides, terminal caps, D residues, and modified residues are not supported by this subcommand.
 
 The ball-and-stick preset shows explicit hydrogens, 35% van der Waals atom radii, and 0.30 Å bond radii. Conformer energies are sampled force-field estimates, not guarantees of a global minimum or a biological bound state. Printed meshes contain overlapping closed components rather than a single boolean-unioned solid.
 

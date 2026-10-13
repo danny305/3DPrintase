@@ -77,7 +77,7 @@ def _execute(task):
     token = REPRODUCTION_COMMAND.set(shlex.join(["3dprintase", *task.argv]))
     try:
         args = resolve_render_preset(parser().parse_args(task.argv))
-        if args.command == "molecule":
+        if args.command in ("molecule", "peptide"):
             paths = [process_molecule(args)]
         elif args.command == "pubchem":
             paths = [process_cid(args.cids[0], args)]

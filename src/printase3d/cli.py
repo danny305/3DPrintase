@@ -67,7 +67,7 @@ def main(argv=None):
         if args.command == "search":
             do_search(args)
             return 0
-        if args.command == "molecule":
+        if args.command in ("molecule", "peptide"):
             process_molecule(args)
             return 0
         if args.command == "batch":
